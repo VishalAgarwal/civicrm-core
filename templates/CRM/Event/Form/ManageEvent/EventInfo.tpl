@@ -131,6 +131,13 @@
       <td>{$form.is_active.html} {$form.is_active.label}</td>
     </tr>
 
+    <!--##TODO: Create a new class for the enable tracking checkbox-->
+    <tr class="crm-event-manage-eventinfo-form-block-is_active">
+      <td>&nbsp;</td>
+      <td>{$form.enable_tracking.html} {$form.enable_tracking.label}</td>
+    </tr>
+
+
     {if $eventID}
     <tr>
       <td>&nbsp;</td>

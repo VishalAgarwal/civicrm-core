@@ -112,6 +112,17 @@
     </html>
   </field>
   <field>
+    <name>enable_tracking</name>
+    <type>boolean</type>
+    <title>Enable web tracking?</title>
+    <default>1</default>
+    <comment>Whether or not to enable web tracking</comment>
+    <add>4.6</add>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+  <field>
     <name>start_date</name>
     <type>datetime</type>
     <uniqueName>event_start_date</uniqueName>

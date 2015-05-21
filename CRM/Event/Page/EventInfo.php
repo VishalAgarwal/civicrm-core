@@ -48,6 +48,8 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
    * @return void
    */
   public function run() {
+
+
     //get the event id.
     $this->_id = CRM_Utils_Request::retrieve('id', 'Positive', $this, TRUE);
     $config = CRM_Core_Config::singleton();
@@ -73,6 +75,7 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
     );
     $additionalBreadCrumb = "<a href=\"$breadCrumbPath\">" . ts('Events') . '</a>';
 
+    //## this command gets the data for the event
     //retrieve event information
     $params = array('id' => $this->_id);
     CRM_Event_BAO_Event::retrieve($params, $values['event']);
@@ -101,6 +104,8 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
         $config->defaultCurrency
       );
 
+
+    
       //CRM-10434
       $discountId = CRM_Core_BAO_Discount::findSet($this->_id, 'civicrm_event');
       if ($discountId) {
@@ -354,6 +359,8 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
       $this->assign('feeBlock', $values['feeBlock']);
     }
     $this->assign('location', $values['location']);
+
+    
 
     if (CRM_Core_Permission::check('access CiviEvent')) {
       $enableCart = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::EVENT_PREFERENCES_NAME, 'enable_cart');
