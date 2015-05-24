@@ -61,6 +61,12 @@ class CRM_Event_Form_Registration_ThankYou extends CRM_Event_Form_Registration {
     $customGroup = $this->get('customProfile');
     $this->assign('customProfile', $customGroup);
 
+
+    require_once('FirePHPCore/FirePHP.class.php');
+    ob_start();
+    $firephp = FirePHP::getInstance(true);
+    $firephp->log($this, 'Preprocess "this"');
+
     CRM_Event_Form_Registration_Confirm::assignProfiles($this);
 
     CRM_Utils_System::setTitle(CRM_Utils_Array::value('thankyou_title', $this->_values['event']));
@@ -232,6 +238,11 @@ class CRM_Event_Form_Registration_ThankYou extends CRM_Event_Form_Registration {
 
     // Assign Participant Count to Lineitem Table
     $this->assign('pricesetFieldsCount', CRM_Price_BAO_PriceSet::getPricesetCount($this->_priceSetId));
+
+    require_once('FirePHPCore/FirePHP.class.php');
+    ob_start();
+    $firephp = FirePHP::getInstance(true);
+    $firephp->log($this->controller, 'Controller');
 
     // can we blow away the session now to prevent hackery
     $this->controller->reset();
