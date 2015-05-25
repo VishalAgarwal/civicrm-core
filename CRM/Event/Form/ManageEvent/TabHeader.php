@@ -92,6 +92,7 @@ class CRM_Event_Form_ManageEvent_TabHeader {
     $tabs['friend'] = array('title' => ts('Tell a Friend')) + $default;
     $tabs['pcp'] = array('title' => ts('Personal Campaigns')) + $default;
     $tabs['repeat'] = array('title' => ts('Repeat')) + $default;
+    $tabs['webtracking'] = array('title' => ts('Web Tracking')) + $default;
 
     // Repeat tab must refresh page when switching repeat mode so js & vars will get set-up
     if (!$form->_isRepeatingEvent) {
@@ -204,6 +205,8 @@ WHERE      e.id = %1
         );
       }
     }
+   // $tabs[webtracking]['link']=CRM_Utils_System::url("civicrm/event/manage/friend",
+     //     "{$reset}action={$action}&id={$eventID}&component=event{$tabs[friend]['qfKey']}";
 
     return $tabs;
   }

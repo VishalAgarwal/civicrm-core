@@ -224,6 +224,14 @@
      <weight>960</weight>
   </item>
   <item>
+     <path>civicrm/event/manage/webtracking</path>
+     <title>Web Tracking</title>
+     <page_callback>CRM_Event_Form_ManageEvent_WebTracking</page_callback>
+     <access_arguments>access CiviEvent</access_arguments>
+     <is_ssl>true</is_ssl>
+     <weight>970</weight>
+  </item>
+  <item>
      <path>civicrm/event/manage/conference</path>
      <title>Conference Slots</title>
      <page_callback>CRM_Event_Form_ManageEvent_Conference</page_callback>
