@@ -46,6 +46,7 @@
                 {foreach name=outer key=key item=item from=$form.$element_name}
                     {if is_numeric($key) }
                         {if $count == 1}<div class="price-set-row {$element.name}-row{$rowCount}">{/if}
+                        <!-- ## Here the html for the checkbox magically appears -->
                         <span class="price-set-option-content">{$form.$element_name.$key.html}</span>
                         {if $count == $element.options_per_line}
                           </div>

@@ -91,6 +91,7 @@
       {crmRegion name="event-page-eventinfo-actionlinks-top"}
         {if $allowRegistration}
           <div class="action-link section register_link-section register_link-top">
+            <!-- Need to add a java script callback to this hyperlink -->
             <a href="{$registerURL}" title="{$registerText}" class="button crm-register-button"><span>{$registerText}</span></a>
           </div>
         {/if}
@@ -222,6 +223,7 @@
       {crmRegion name="event-page-eventinfo-actionlinks-bottom"}
         {if $allowRegistration}
           <div class="action-link section register_link-section register_link-bottom">
+            <!-- Need to add a java script callback to this hyperlink -->
             <a href="{$registerURL}" title="{$registerText}" class="button crm-register-button"><span>{$registerText}</span></a>
           </div>
         {/if}

@@ -320,6 +320,7 @@ class CRM_Event_Form_Registration_Register extends CRM_Event_Form_Registration {
   public function buildQuickForm() {
     // build profiles first so that we can determine address fields etc
     // and then show copy address checkbox
+    // ##this is where the fields for FirstName, Lastname and Email are created
     $this->buildCustom($this->_values['custom_pre_id'], 'customPre');
     $this->buildCustom($this->_values['custom_post_id'], 'customPost');
 

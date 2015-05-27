@@ -35,7 +35,7 @@
  */
 
 /**
- * This class generates form components for processing Event
+ * This class generates form components for processing Event Web Tracking
  *
  */
 class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent {
@@ -43,7 +43,7 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
   /**
    * Event type.
    */
-  protected $_eventType = NULL;
+  protected $_eventType = NULL;  // ## I dont think I need this variable
 
   /**
    * Set variables up before form is built.
@@ -51,16 +51,16 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    * @return void
    */
   public function preProcess() {
-    //custom data related code
+    //##custom data related code
     $this->_cdType = CRM_Utils_Array::value('type', $_GET);
     $this->assign('cdType', FALSE);
     if ($this->_cdType) {
       $this->assign('cdType', TRUE);
       return CRM_Custom_Form_CustomData::preProcess($this);
     }
-    parent::preProcess();
+    parent::preProcess();   // ##why is this function called or rather what does this do?
 
-    if ($this->_id) {
+    if ($this->_id) {    // ## assigning the event_type_id. Do i need to do this?
       $this->assign('entityID', $this->_id);
       $eventType = CRM_Core_DAO::getFieldValue('CRM_Event_DAO_Event',
         $this->_id,
@@ -71,8 +71,10 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
       $eventType = 'null';
     }
     
-    $showLocation = FALSE;
+    $showLocation = FALSE;  // ##do i need to assign this variable 
+
     // when custom data is included in this page
+    //## do i need to worry about custom data?
     if (!empty($_POST['hidden_custom'])) {
       $this->set('type', 'Event');
       $this->set('subType', CRM_Utils_Array::value('event_type_id', $_POST));
@@ -92,6 +94,8 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    * @return void
    */
   public function setDefaultValues() {
+
+    // ## block related to custom data.
     if ($this->_cdType) {
       $tempId = (int) CRM_Utils_Request::retrieve('template_id', 'Integer', $this);
       // set template custom data as a default for event, CRM-5596
@@ -104,13 +108,17 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
 
       return $defaults;
     }
+
+    // ##calling setDefaultValues of parent class
     $defaults = parent::setDefaultValues();
 
     // in update mode, we need to set custom data subtype to tpl
+    //## i dont think i need to assign customDataSubType
     if (!empty($defaults['event_type_id'])) {
       $this->assign('customDataSubType', $defaults['event_type_id']);
     }
 
+    //## show hide features. Might want to look into it later
     $this->_showHide = new CRM_Core_ShowHideBlocks();
     // Show waitlist features or event_full_text if max participants set
     if (!empty($defaults['max_participants'])) {
@@ -136,14 +144,14 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
     $this->assign('description', CRM_Utils_Array::value('description', $defaults));
 
     // Provide suggested text for event full and waitlist messages if they're empty
+    // ## specific to event info. I dont think i need this
     $defaults['event_full_text'] = CRM_Utils_Array::value('event_full_text', $defaults, ts('This event is currently full.'));
-
     $defaults['waitlist_text'] = CRM_Utils_Array::value('waitlist_text', $defaults, ts('This event is currently full. However you can register now and get added to a waiting list. You will be notified if spaces become available.'));
     list($defaults['start_date'], $defaults['start_date_time']) = CRM_Utils_Date::setDateDefaults(CRM_Utils_Array::value('start_date', $defaults), 'activityDateTime');
-
     if (!empty($defaults['end_date'])) {
       list($defaults['end_date'], $defaults['end_date_time']) = CRM_Utils_Date::setDateDefaults($defaults['end_date'], 'activityDateTime');
     }
+
     return $defaults;
   }
 
@@ -153,24 +161,33 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    * @return void
    */
   public function buildQuickForm() {
+
+    //## custom data related stuff. I dont think i need it.
     if ($this->_cdType) {
       return CRM_Custom_Form_CustomData::buildQuickForm($this);
     }
+
     //need to assign custom data type and subtype to the template
+    //## I dont think i need this
     $this->assign('customDataType', 'Event');
     if ($this->_eventType) {
       $this->assign('customDataSubType', $this->_eventType);
     }
     $this->assign('entityId', $this->_id);
 
-    $this->_first = TRUE;
-    $this->applyFilter('__ALL__', 'trim');
+    $this->_first = TRUE; // ## this is false. if this parameter means that this is the first tab
+
+    $this->applyFilter('__ALL__', 'trim'); // ## what does this function do?
+
+    // ## since there is no text needed to be displayed i dont think i need this
     $attributes = CRM_Core_DAO::getAttribute('CRM_Event_DAO_Event');
 
+    //  ## adding template title. I dont think i need this
     if ($this->_isTemplate) {
       $this->add('text', 'template_title', ts('Template Title'), $attributes['template_title'], TRUE);
     }
 
+    // ## something about event templates
     if ($this->_action & CRM_Core_Action::ADD) {
       $eventTemplates = CRM_Event_PseudoConstant::eventTemplates();
       if (CRM_Utils_System::isNull($eventTemplates) && !$this->_isTemplate) {
@@ -184,20 +201,23 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
       $this->preventAjaxSubmit();
     }
 
-    // add event title, make required if this is not a template
+    // ## event title. add event title, make required if this is not a template
     $this->add('text', 'title', ts('Event Title'), $attributes['event_title'], !$this->_isTemplate);
 
+    // ## some select
     $this->addSelect('event_type_id',
       array('onChange' => "CRM.buildCustomData( 'Event', this.value );"),
       TRUE
     );
 
     //CRM-7362 --add campaigns.
+    //## i dont think campaign is required
     $campaignId = NULL;
     if ($this->_id) {
       $campaignId = CRM_Core_DAO::getFieldValue('CRM_Event_DAO_Event', $this->_id, 'campaign_id');
     }
     CRM_Campaign_BAO_Campaign::addCampaign($this, $campaignId);
+
 
     $this->addSelect('default_role_id', array(), TRUE);
 
@@ -246,6 +266,8 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    * @return array
    *   list of errors to be posted back to the form
    */
+
+  //## can i add the checks that I need to perform here?
   public static function formRule($values) {
     $errors = array();
 
@@ -278,6 +300,7 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    */
   public function postProcess() {
 
+    //## similar call is also made in Location.tpl What does this call do exactly?
     $params = $this->controller->exportValues($this->_name);
 
     //format params
@@ -305,6 +328,7 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
     );
 
     //merge params with defaults from templates
+    //## what does this call do?
     if (!empty($params['template_id'])) {
       $params = array_merge(CRM_Event_BAO_Event::getTemplateDefaultValues($params['template_id']), $params);
     }
@@ -314,7 +338,7 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
     $firephp = FirePHP::getInstance(true);
     $firephp->log($params, 'Iterators');
     //exit;
-    //## this call creates the event and adds the input from the form into the DB
+    //## this call creates the event and adds the input from the form into the DB. even called in Location
     $event = CRM_Event_BAO_Event::create($params);
 
     // now that we have the event’s id, do some more template-based stuff
@@ -324,6 +348,7 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
 
     $this->set('id', $event->id);
 
+    // ## some other approach is adopted for location.php and registration.php
     $this->postProcessHook();
 
     if ($this->_action & CRM_Core_Action::ADD) {
@@ -350,9 +375,11 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    * @return string
    */
   public function getTitle() {
-    return ts('Event Information and Settings');
+    return ts('Event Web Tracking Settings');
   }
 
+
+  //## function related to custom data
   /**
    * Retrieve event template custom data values.
    * and set as default values for current new event.

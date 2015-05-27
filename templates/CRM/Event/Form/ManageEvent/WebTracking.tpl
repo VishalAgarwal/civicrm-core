@@ -26,7 +26,7 @@
 {* Step 1 of New Event Wizard, and Edit Event Info form. *}
 
 <div class="crm-block crm-form-block crm-event-manage-eventinfo-form-block">
-
+        <<!-- ##These buttons need to be present -->
         <div class="crm-submit-buttons">
         {include file="CRM/common/formButtons.tpl" location="top"}
         </div>
@@ -39,25 +39,12 @@
     </tr>
     
   </table>
- 
+        <<!-- ##These buttons need to be present -->
         <div class="crm-submit-buttons">
            {include file="CRM/common/formButtons.tpl" location="bottom"}
         </div>
     {include file="CRM/common/showHide.tpl" elemType="table-row"}
-
-    {include file="CRM/Form/validate.tpl"}
 </div>
 
-{literal}
-<script type="text/javascript">
-  CRM.$(function($) {
-    var $form = $('form.{/literal}{$form.formClass}{literal}');
-    $('#template_id', $form).change(function() {
-      $(this).closest('.crm-ajax-container, #crm-main-content-wrapper')
-        .crmSnippet({url: CRM.url('civicrm/event/add', {action: 'add', reset: 1, template_id: $(this).val()})})
-        .crmSnippet('refresh');
-    })
-  });
-</script>
-{/literal}
+
 
