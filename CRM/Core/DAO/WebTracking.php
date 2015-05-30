@@ -99,6 +99,18 @@ class CRM_Core_DAO_WebTracking extends CRM_Core_DAO
    */
   public $tracking_id;
   /**
+   * Holds the id to the CiviEvent/CiviContribution/CiviDonation.
+   *
+   * @var int unsigned
+   */
+  public $page_id;
+  /**
+   * Whether the Page this row refers to is a CiviEvent/CiviContribution/CiviDonation Page.
+   *
+   * @var string
+   */
+  public $page_category;
+  /**
    * class constructor
    *
    * @return civicrm_webtracking
@@ -138,6 +150,22 @@ class CRM_Core_DAO_WebTracking extends CRM_Core_DAO
           'maxlength' => 64,
           'size' => CRM_Utils_Type::BIG,
         ) ,
+        'page_id' => array(
+          'name' => 'page_id',
+          'type' => CRM_Utils_Type::T_INT,
+          'title' => ts('Page ID') ,
+          'description' => 'Holds the id to the CiviEvent/CiviContribution/CiviDonation.',
+          'required' => true,
+        ) ,
+        'page_category' => array(
+          'name' => 'page_category',
+          'type' => CRM_Utils_Type::T_STRING,
+          'title' => ts('Page Category') ,
+          'description' => 'Whether the Page this row refers to is a CiviEvent/CiviContribution/CiviDonation Page.',
+          'required' => true,
+          'maxlength' => 64,
+          'size' => CRM_Utils_Type::BIG,
+        ) ,
       );
     }
     return self::$_fields;
@@ -155,6 +183,8 @@ class CRM_Core_DAO_WebTracking extends CRM_Core_DAO
         'id' => 'id',
         'enable_tracking' => 'enable_tracking',
         'tracking_id' => 'tracking_id',
+        'page_id' => 'page_id',
+        'page_category' => 'page_category',
       );
     }
     return self::$_fieldKeys;

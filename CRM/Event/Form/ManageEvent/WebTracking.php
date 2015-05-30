@@ -59,7 +59,8 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
   public function setDefaultValues() {
    
     //## Will have to set the even_id in params 
-    $params['id']=4;
+    $params['page_id']=$this->_id;
+    $params['page_category']="civicrm_event";
     $defaults = array();
     CRM_Core_BAO_WebTracking::retrieve($params,$defaults);
     return $defaults;
@@ -149,8 +150,19 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
     //## similar call is also made in Location.tpl What does this call do exactly?
     $params = $this->controller->exportValues($this->_name);
 
+    $existParams['page_id'] = $this->_id;
+    $existParams['page_category'] = "civicrm_event";
+    $existingEnrty = array();
+    CRM_Core_BAO_WebTracking::retrieve($existParams,$existingEnrty);
+    if(!empty($existingEnrty))
+    {
+       $params['id'] = $existingEnrty['id']; 
+    }
+
     $params['enable_tracking'] = CRM_Utils_Array::value('enable_tracking', $params, FALSE);
     $params['tracking_id'] = CRM_Utils_Array::value('tracking_id', $params, FALSE);
+    $params['page_id'] = $this->_id;
+    $params['page_category']="civicrm_event";
 
     //## this call creates the event and adds the input from the form into the DB. even called in Location
     $event = CRM_Core_BAO_WebTracking::add($params);

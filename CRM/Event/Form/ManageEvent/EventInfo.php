@@ -232,9 +232,6 @@ class CRM_Event_Form_ManageEvent_EventInfo extends CRM_Event_Form_ManageEvent {
 
     $this->addFormRule(array('CRM_Event_Form_ManageEvent_EventInfo', 'formRule'));
 
-    //## Create a checkbox to ask whether or not to enable web tracking
-    $this->addElement('checkbox', 'enable_tracking', ts('Enable WebTracking?'));
-
     parent::buildQuickForm();
   }
 
@@ -290,7 +287,6 @@ class CRM_Event_Form_ManageEvent_EventInfo extends CRM_Event_Form_ManageEvent {
     $params['is_map'] = CRM_Utils_Array::value('is_map', $params, FALSE);
     $params['is_active'] = CRM_Utils_Array::value('is_active', $params, FALSE);
     $params['is_public'] = CRM_Utils_Array::value('is_public', $params, FALSE);
-    $params['enable_tracking'] = CRM_Utils_Array::value('enable_tracking', $params, FALSE);
     $params['is_share'] = CRM_Utils_Array::value('is_share', $params, FALSE);
     $params['default_role_id'] = CRM_Utils_Array::value('default_role_id', $params, FALSE);
     $params['id'] = $this->_id;

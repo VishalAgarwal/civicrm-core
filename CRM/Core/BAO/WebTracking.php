@@ -75,103 +75,23 @@ class CRM_Core_BAO_WebTracking extends CRM_Core_DAO_WebTracking {
     return NULL;
   }
 
-
   /**
-   * Given the list of params in the params array, fetch the object
-   * and store the values in the values array
+   * Delete the webtracking entry.
    *
-   * @param array $params
-   *   Input parameters to find object.
-   * @param array $values
-   *   Output values of the object.
-   * @param int $numNotes
-   *   The maximum number of notes to return (0 if all).
-   *
-   * @return object
-   *   $notes  Object of CRM_Core_BAO_Note
-   */
-  public static function &getValues(&$params, &$values, $numNotes = self::MAX_NOTES) {
-    if (empty($params)) {
-      return NULL;
-    }
-    $note = new CRM_Core_BAO_Note();
-    $note->entity_id = $params['contact_id'];
-    $note->entity_table = 'civicrm_contact';
-
-    // get the total count of notes
-    $values['noteTotalCount'] = $note->count();
-
-    // get only 3 recent notes
-    $note->orderBy('modified_date desc');
-    $note->limit($numNotes);
-    $note->find();
-
-    $notes = array();
-    $count = 0;
-    while ($note->fetch()) {
-      $values['note'][$note->id] = array();
-      CRM_Core_DAO::storeValues($note, $values['note'][$note->id]);
-      $notes[] = $note;
-
-      $count++;
-      // if we have collected the number of notes, exit loop
-      if ($numNotes > 0 && $count >= $numNotes) {
-        break;
-      }
-    }
-
-    return $notes;
-  }
-
-  /**
-   * Delete the notes.
-   *
-   * @param int $id
+   * @param int $page_id
    *   Note id.
-   * @param bool $showStatus
-   *   Do we need to set status or not.
+   * @param string $page_category
    *
-   * @return int|NULL
-   *   no of deleted notes on success, null otherwise
+   * @return void
+   * 
    */
-  public static function del($id, $showStatus = TRUE) {
-    $return = NULL;
-    $recent = array($id);
-    $note = new CRM_Core_DAO_Note();
-    $note->id = $id;
-    $note->find();
-    $note->fetch();
-    if ($note->entity_table == 'civicrm_note') {
-      $status = ts('Selected Comment has been deleted successfully.');
-    }
-    else {
-      $status = ts('Selected Note has been deleted successfully.');
-    }
+  public static function del($page_id, $page_category) {
 
-    // Delete all descendents of this Note
-    foreach (self::getDescendentIds($id) as $childId) {
-      $childNote = new CRM_Core_DAO_Note();
-      $childNote->id = $childId;
-      $childNote->delete();
-      $childNote->free();
-      $recent[] = $childId;
-    }
-
-    $return = $note->delete();
-    $note->free();
-    if ($showStatus) {
-      CRM_Core_Session::setStatus($status, ts('Deleted'), 'success');
-    }
-
-    // delete the recently created Note
-    foreach ($recent as $recentId) {
-      $noteRecent = array(
-        'id' => $recentId,
-        'type' => 'Note',
-      );
-      CRM_Utils_Recent::del($noteRecent);
-    }
-    return $return;
-  }
-
+    $webtracking = new CRM_Core_DAO_WebTracking();
+    $webtracking->page_id = $page_id;
+    $webtracking->page_category = $page_category;
+    $webtracking->find();
+    $webtracking->delete();
+    $webtracking->free();
+  } 
 }

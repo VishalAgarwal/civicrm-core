@@ -169,6 +169,12 @@ class CRM_Event_Page_ManageEvent extends CRM_Core_Page {
           'url' => 'civicrm/event/manage/repeat',
           'field' => 'is_repeating_event',
         );
+      self::$_tabLinks[$cacheKey]['webtracking']
+        = array(
+          'title' => ts('Web Tracking'),
+          'url' => 'civicrm/event/manage/webtracking',
+          'field' => 'enable_tracking',  //## what is this field used for?
+        );  
     }
 
     if (!$enableCart) {
