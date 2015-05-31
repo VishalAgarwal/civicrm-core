@@ -560,7 +560,8 @@ class CRM_Event_Form_Registration_Register extends CRM_Event_Form_Registration {
     ob_start();
     $firephp = FirePHP::getInstance(true);
   //  $firephp->log($this->_eventId, 'Price Set');
-
+    $session = CRM_Core_Session::singleton();
+    $firephp->log($session->get('utm_source'),'Price');
     $trackingParams = array('page_id' => $this->_eventId, 'page_category' => "civicrm_event");
     CRM_Core_BAO_WebTracking::retrieve($trackingParams,$trackingValues);
     if($this->_values['event']['is_monetary'] == 1 && $trackingValues['enable_tracking'] == 1)
