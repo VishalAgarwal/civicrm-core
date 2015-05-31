@@ -378,7 +378,8 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
     if($trackingValues['enable_tracking'] == 1)
     {
       CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/WebTracking.js',10,'html-header');
-      CRM_Core_Resources::singleton()->addVars('WebTracking', array('tracking_id' => $trackingValues['tracking_id']));
+      CRM_Core_Resources::singleton()->addVars('WebTracking', array('tracking_id' => $trackingValues['tracking_id'], 'pageview' => 1));
+      CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/EventTracking.js');
     }
 
     return parent::run();

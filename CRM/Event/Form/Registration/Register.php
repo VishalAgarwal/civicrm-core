@@ -554,6 +554,34 @@ class CRM_Event_Form_Registration_Register extends CRM_Event_Form_Registration {
     if ($this->_pcpId) {
       CRM_PCP_BAO_PCP::buildPcp($this->_pcpId, $this);
     }
+
+    //## WebTracking stuff
+    require_once('FirePHPCore/FirePHP.class.php');
+    ob_start();
+    $firephp = FirePHP::getInstance(true);
+  //  $firephp->log($this->_eventId, 'Price Set');
+
+    $trackingParams = array('page_id' => $this->_eventId, 'page_category' => "civicrm_event");
+    CRM_Core_BAO_WebTracking::retrieve($trackingParams,$trackingValues);
+    if($this->_values['event']['is_monetary'] == 1 && $trackingValues['enable_tracking'] == 1)
+    {
+      CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/WebTracking.js',10,'html-header');
+      CRM_Core_Resources::singleton()->addVars('WebTracking', array('tracking_id' => $trackingValues['tracking_id'], 'pageview' => 1));
+      
+      //## IMP:Currently this is not required
+      /*foreach ($this->_values['fee'] as $myFeeFields) 
+      {
+        CRM_Core_Resources::singleton()->addVars('WebTracking', array('event_name' => $myFeeFields['name']));
+        //$firephp->log($myFeeFields['name'], 'Price Set'); 
+      }*/
+
+      CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/EventTracking.js');
+      //$firephp->log($myFeeFields['name'], 'Price Set');
+    }
+    /* $firephp->log($trackingValues, 'Price Set');
+     $firephp->log($this->_values, 'Price Set');
+     $firephp->log(key(reset($this->_values['fee'])), 'Price Set');
+     $firephp->log($this->_values['fee'][7]['id'], 'Price Set');*/
   }
 
   /**

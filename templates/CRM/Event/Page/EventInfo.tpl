@@ -24,7 +24,7 @@
  +--------------------------------------------------------------------+
 *}
 {* this template is used for displaying event information *}
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {if $registerClosed }
 <div class="spacer"></div>
 <div class="messages status no-popup">
@@ -98,7 +98,6 @@
       {/crmRegion}
     </div>
   {/if}
-
   {if $event.summary}
       <div class="crm-section event_summary-section">
         {$event.summary}
@@ -222,7 +221,7 @@
     <div class="crm-actionlinks-bottom">
       {crmRegion name="event-page-eventinfo-actionlinks-bottom"}
         {if $allowRegistration}
-          <div class="action-link section register_link-section register_link-bottom">
+          <div class="action-link section register_link-section register_link-bottom" id="apple">
             <!-- Need to add a java script callback to this hyperlink -->
             <a href="{$registerURL}" title="{$registerText}" class="button crm-register-button"><span>{$registerText}</span></a>
           </div>
@@ -241,9 +240,9 @@
         {include file="CRM/common/SocialNetwork.tpl" url=$eventUrl title=$event.title pageURL=$eventUrl}
     {/if}
     
-    {if $event.enable_tracking eq 1}
-        <p> I ROCK </p>
-    {/if}
+   <!--## {if $enable_tracking eq 1}
+        <p> I ROCK {$tracking_id} </p>
+    {/if} -->
     </div>
 </div>
 {literal}

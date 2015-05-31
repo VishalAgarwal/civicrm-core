@@ -35,4 +35,21 @@
     <comment>Unique UAID provided by google analytics.</comment>
     <add>4.6</add>
   </field>
+  <field>
+    <name>page_id</name>
+    <title>Page ID</title>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Holds the id to the CiviEvent/CiviContribution/CiviDonation.</comment>
+    <add>4.6</add>
+  </field>
+   <field>
+    <name>page_category</name>
+    <title>Page Category</title>
+    <type>varchar</type>
+    <length>64</length>
+    <required>true</required>
+    <comment>Whether the Page this row refers to is a CiviEvent/CiviContribution/CiviDonation Page.</comment>
+    <add>4.6</add>
+  </field>
 </table>

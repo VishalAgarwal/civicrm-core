@@ -96,6 +96,8 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    // $form->registerRule('checktracking', 'callback', 'checkTracking');
     //$form->addRule('tracking_id', 'Tracking ID is invalid', 'checktracking');
 
+    $this->addFormRule(array('CRM_Event_Form_ManageEvent_WebTracking', 'formRule'));
+
     parent::buildQuickForm();
   }
 
@@ -115,29 +117,17 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
    */
 
   //## can i add the checks that I need to perform here?
-  /*public static function formRule($values) {
+  public static function formRule($values) {
     $errors = array();
 
-    if (!$values['is_template']) {
-      if (CRM_Utils_System::isNull($values['start_date'])) {
-        $errors['start_date'] = ts('Start Date and Time are required fields');
-      }
-      else {
-        $start = CRM_Utils_Date::processDate($values['start_date']);
-        $end = CRM_Utils_Date::processDate($values['end_date']);
-        if (($end < $start) && ($end != 0)) {
-          $errors['end_date'] = ts('End date should be after Start date.');
-        }
-      }
+    if($values['enable_tracking'] == 1)
+    {
+      $pos = strpos($values['tracking_id'],'UA-'); 
+      if($pos===false || $pos!==0) $errors['tracking_id'] = ts('You have selected to enable tracking, please provide a valid tracking id');
     }
-
-    //CRM-4286
-    if (strstr($values['title'], '/')) {
-      $errors['title'] = ts("Please do not use '/' in Event Title.");
-    }
-
+    
     return $errors;
-  }*/
+  }
 
   /**
    * Process the form submission.
