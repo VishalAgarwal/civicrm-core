@@ -380,7 +380,7 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
       CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/WebTracking.js',10,'html-header');
       CRM_Core_Resources::singleton()->addVars('WebTracking', array('tracking_id' => $trackingValues['tracking_id'], 'pageview' => 1));
       CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/EventTracking.js');
-      $session->set('utm_source',$_GET['utm_source']);
+      if(isset($_GET['utm_source'])) $session->set('utm_source',$_GET['utm_source']);
       //require_once('FirePHPCore/FirePHP.class.php');
       //ob_start();
       //$firephp = FirePHP::getInstance(true);

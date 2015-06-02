@@ -239,10 +239,23 @@ class CRM_Event_Form_Registration_ThankYou extends CRM_Event_Form_Registration {
     // Assign Participant Count to Lineitem Table
     $this->assign('pricesetFieldsCount', CRM_Price_BAO_PriceSet::getPricesetCount($this->_priceSetId));
 
+    //## webtracking stuff
     require_once('FirePHPCore/FirePHP.class.php');
     ob_start();
     $firephp = FirePHP::getInstance(true);
     $firephp->log($this->controller, 'Controller');
+
+    $trackingParams = array('page_id' => $this->_eventId, 'page_category' => "civicrm_event");
+    CRM_Core_BAO_WebTracking::retrieve($trackingParams,$trackingValues);
+    if($trackingValues['enable_tracking'] == 1)
+    {
+      CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/WebTracking.js',10,'html-header');
+      CRM_Core_Resources::singleton()->addVars('WebTracking', array('tracking_id' => $trackingValues['tracking_id'], 'pageview' => 0));
+      CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/EventTracking.js');
+      CRM_Core_Resources::singleton()->addVars('WebTracking', array('trnx_id' => $this->_trxnId, 'totalAmount' => $this->_totalAmount));
+      if($this->_trxnId)CRM_Core_Resources::singleton()->addScript('ecommerce();');
+    }
+
 
     // can we blow away the session now to prevent hackery
     $this->controller->reset();

@@ -43,14 +43,26 @@
             </a>
         {else}
             {*use advanced buttons for pages*}
+            {assign var=urlTitle value=$title|replace:" ":"_"}
+
+            {assign var=twitUrl value="`$url`&amp;utm_source=twitter&amp;utm_medium=social&amp;utm_campaign=twitter"}
+
+            {assign var=linkedinUrl value=$url|cat:"&amp;utm_source=linkedin&amp;utm_medium=social&amp;utm_campaign="|cat:$urlTitle}
+
+            {assign var=fbUrl value="`$url`&amp;utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=`$urlTitle`"|replace:'localhost:7979':'xczwkimdti.localtunnel.me'|replace:'&amp;':'&'|escape:'url'}
+
+            {assign var=googleUrl value=$url|cat:"&amp;utm_source=googleplus&amp;utm_medium=social&amp;utm_campaign="|cat:$urlTitle}
+
+            <p>{$fbUrl}</p>
+
             <div class="label">
                 <iframe allowtransparency="true" frameborder="0" scrolling="no"
-                src="https://platform.twitter.com/widgets/tweet_button.html?text={$title}&amp;url={$url|escape:'url'}"
+                src="https://platform.twitter.com/widgets/tweet_button.html?text={$title}&amp;url={$twitUrl|replace:'&amp;':'&'|replace:'localhost:7979':'xczwkimdti.localtunnel.me'|escape:'url'}"
                 style="width:100px; height:20px;">
                 </iframe>
             </div>
             <div class="label">
-                <g:plusone href={$url}></g:plusone>
+                <g:plusone href={$googleUrl|replace:'localhost:7979':'xczwkimdti.localtunnel.me'}></g:plusone>
             </div>
             <div class="label" style="width:300px;">
                 <iframe src="https://www.facebook.com/plugins/like.php?app_id=240719639306341&amp;href={$url|escape:'url'}&amp;send=false&amp;layout=standard&amp;show_faces=false&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:30px;" allowTransparency="true">
@@ -58,7 +70,7 @@
             </div>
             <div class="label">
               <script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
-              <script type="IN/Share" data-url={$url} data-counter="right"></script>
+              <script type="IN/Share" data-url={$linkedinUrl} data-counter="right"></script>
             </div>
         {/if}
     </div>

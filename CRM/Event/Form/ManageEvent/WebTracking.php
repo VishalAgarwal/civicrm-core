@@ -101,12 +101,6 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
     parent::buildQuickForm();
   }
 
-
-  /*public function checkTracking($value)
-  {
-    return false;
-  }*/
-  
   /**
    * Global validation rules for the form.
    *
@@ -120,7 +114,7 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
   public static function formRule($values) {
     $errors = array();
 
-    if($values['enable_tracking'] == 1)
+    if(isset($values['enable_tracking']) && $values['enable_tracking'] == 1)
     {
       $pos = strpos($values['tracking_id'],'UA-'); 
       if($pos===false || $pos!==0) $errors['tracking_id'] = ts('You have selected to enable tracking, please provide a valid tracking id');
