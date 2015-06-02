@@ -49,9 +49,11 @@
 
             {assign var=linkedinUrl value=$url|cat:"&amp;utm_source=linkedin&amp;utm_medium=social&amp;utm_campaign="|cat:$urlTitle}
 
-            {assign var=fbUrl value="`$url`&amp;utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=`$urlTitle`"|replace:'localhost:7979':'xczwkimdti.localtunnel.me'|replace:'&amp;':'&'|escape:'url'}
+            {assign var=fbUrl value="`$url`&utm_source=facebook&utm_medium=social&utm_campaign=`$urlTitle`"|replace:'localhost:7979':'hqxcerkuwh.localtunnel.me'|replace:'&amp;':'&'}
 
             {assign var=googleUrl value=$url|cat:"&amp;utm_source=googleplus&amp;utm_medium=social&amp;utm_campaign="|cat:$urlTitle}
+
+            {assign var=fbTestUrl value="http://d45.demo.civicrm.org/civicrm/event/info?id=1&reset=1&utm_source=facebook&utm_medium=social&utm_campaign=ram"}
 
             <p>{$fbUrl}</p>
 
@@ -65,7 +67,7 @@
                 <g:plusone href={$googleUrl|replace:'localhost:7979':'xczwkimdti.localtunnel.me'}></g:plusone>
             </div>
             <div class="label" style="width:300px;">
-                <iframe src="https://www.facebook.com/plugins/like.php?app_id=240719639306341&amp;href={$url|escape:'url'}&amp;send=false&amp;layout=standard&amp;show_faces=false&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:30px;" allowTransparency="true">
+                <iframe src="https://www.facebook.com/plugins/like.php?app_id=240719639306341&amp;href={$fbUrl|escape:'url'}&amp;send=false&amp;layout=standard&amp;show_faces=false&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:30px;" allowTransparency="true">
                 </iframe>
             </div>
             <div class="label">
