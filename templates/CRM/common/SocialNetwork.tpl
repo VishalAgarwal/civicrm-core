@@ -53,18 +53,14 @@
 
             {assign var=googleUrl value=$url|cat:"&amp;utm_source=googleplus&amp;utm_medium=social&amp;utm_campaign="|cat:$urlTitle}
 
-            {assign var=fbTestUrl value="http://d45.demo.civicrm.org/civicrm/event/info?id=1&reset=1&utm_source=facebook&utm_medium=social&utm_campaign=ram"}
-
-            <p>{$fbUrl}</p>
-
             <div class="label">
                 <iframe allowtransparency="true" frameborder="0" scrolling="no"
-                src="https://platform.twitter.com/widgets/tweet_button.html?text={$title}&amp;url={$twitUrl|replace:'&amp;':'&'|replace:'localhost:7979':'xczwkimdti.localtunnel.me'|escape:'url'}"
+                src="https://platform.twitter.com/widgets/tweet_button.html?text={$title}&amp;url={$twitUrl|replace:'&amp;':'&'|replace:'localhost:7979':'hqxcerkuwh.localtunnel.me'|escape:'url'}"
                 style="width:100px; height:20px;">
                 </iframe>
             </div>
             <div class="label">
-                <g:plusone href={$googleUrl|replace:'localhost:7979':'xczwkimdti.localtunnel.me'}></g:plusone>
+                <g:plusone href={$googleUrl|replace:'localhost:7979':'hqxcerkuwh.localtunnel.me'}></g:plusone>
             </div>
             <div class="label" style="width:300px;">
                 <iframe src="https://www.facebook.com/plugins/like.php?app_id=240719639306341&amp;href={$fbUrl|escape:'url'}&amp;send=false&amp;layout=standard&amp;show_faces=false&amp;action=like&amp;colorscheme=light" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:30px;" allowTransparency="true">
@@ -85,7 +81,7 @@
       <div>
         <span class="bold">{ts}You can also share the below link in an email or on your website.{/ts}</span>
         <br/>
-        <a href="{$pageURL}">{$pageURL}</a>
+        <a href="{$pageURL|cat:'&amp;utm_source=helpSpreadTheWord&amp;utm_medium=email&amp;utm_campaign='|cat:$urlTitle}">{$pageURL|cat:'&amp;utm_source=helpSpreadTheWord&amp;utm_medium=email&amp;utm_campaign='|cat:$urlTitle}</a>
       </div>
     {else}
       <div class="clear"></div>

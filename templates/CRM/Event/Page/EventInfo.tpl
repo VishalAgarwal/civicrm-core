@@ -234,7 +234,6 @@
 
     <!--##This link needs to be appended with UTM parameters. We may choose to append with UTM even if page is not tracked.
     A new variable needs to be created to pass the appropriate URL to share on linkedin-->
-
     {if $event.is_share }
         {capture assign=eventUrl}{crmURL p='civicrm/event/info' q="id=`$event.id`&amp;reset=1" a=1 fe=1 h=1}{/capture}
         {include file="CRM/common/SocialNetwork.tpl" url=$eventUrl title=$event.title pageURL=$eventUrl}

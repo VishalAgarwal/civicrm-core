@@ -2,16 +2,19 @@ function ecommerce()
 {
 	var trnxId = CRM.vars.WebTracking.trnx_id;
 	var totalAmount = CRM.vars.WebTracking.totalAmount;
-	alert(trnxId);
-	alert(totalAmount);
+	var source = CRM.vars.WebTracking.utm_source;
 
 	ga('require', 'ecommerce');
-	ga('ecommerce:addItem', {
-		'id': trnxId,                     // Transaction ID. Required.
-		'name': 'Test',    			  	  // Product name. Required
-		'price': totalAmount
-				});
+	ga('ecommerce:addTransaction', {
+  		'id': trnxId,                     // Transaction ID. Required.
+  		'affiliation': source,   		  // Affiliation or store name.
+  		'revenue': totalAmount,           // Grand Total.
+  		'shipping': '0',                  // Shipping.
+  		'tax': '0'                     	  // Tax.
+	});
 	ga('ecommerce:send');
+	//ga('send', 'event', 'E-Commerce', 'click');
+	//alert('Done '+source);
 }
 
 cj(document).ready(function(){
