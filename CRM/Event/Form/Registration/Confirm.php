@@ -393,6 +393,17 @@ class CRM_Event_Form_Registration_Confirm extends CRM_Event_Form_Registration {
     // Assign Participant Count to Lineitem Table
     $this->assign('pricesetFieldsCount', CRM_Price_BAO_PriceSet::getPricesetCount($this->_priceSetId));
     $this->addFormRule(array('CRM_Event_Form_Registration_Confirm', 'formRule'), $this);
+
+    //## webtracking code
+    $trackingParams = array('page_id' => $this->_eventId, 'page_category' => "civicrm_event");
+    CRM_Core_BAO_WebTracking::retrieve($trackingParams,$trackingValues);
+    if($trackingValues['enable_tracking'] == 1)
+    {
+      CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/WebTracking.js',10,'html-header');
+      CRM_Core_Resources::singleton()->addVars('WebTracking', array('tracking_id' => $trackingValues['tracking_id'], 'pageview' => 0));
+      CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/EventTracking.js');
+      CRM_Core_Resources::singleton()->addScript('confirm();');
+    }
   }
 
   /**

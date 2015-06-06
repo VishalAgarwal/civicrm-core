@@ -253,7 +253,7 @@ class CRM_Event_Form_Registration_ThankYou extends CRM_Event_Form_Registration {
       CRM_Core_Resources::singleton()->addVars('WebTracking', array('tracking_id' => $trackingValues['tracking_id'], 'pageview' => 0));
       CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/EventTracking.js');
       CRM_Core_Resources::singleton()->addVars('WebTracking', array('trnx_id' => $this->_trxnId, 'totalAmount' => $this->_totalAmount));
-      //## fetching the source from the session if it is set and adding it as a variable.
+      //## fetching the source from the session and adding it as a variable.
       $session = CRM_Core_Session::singleton();
       CRM_Core_Resources::singleton()->addVars('WebTracking', array('utm_source' => $session->get('utm_source')));
       if($this->_trxnId)CRM_Core_Resources::singleton()->addScript('ecommerce();');

@@ -13,8 +13,6 @@ function ecommerce()
   		'tax': '0'                     	  // Tax.
 	});
 	ga('ecommerce:send');
-	//ga('send', 'event', 'E-Commerce', 'click');
-	//alert('Done '+source);
 }
 
 cj(document).ready(function(){
@@ -36,6 +34,14 @@ cj(document).ready(function(){
 				ga('send', 'event', eventString, 'click');	
 			}	
 		});
-
 });    
+
+function confirm()
+{
+	cj(document).ready(function(){
+		cj(".crm-submit-buttons").click(function(event){
+			ga('send', 'event', 'Confirm Register', 'click');
+		});
+	});	
+}
 
