@@ -80,12 +80,6 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
     $params = array('id' => $this->_id);
     CRM_Event_BAO_Event::retrieve($params, $values['event']);
 
-    $trackingParams = array('page_id' => $this->_id, 'page_category' => "civicrm_event");
-    CRM_Core_BAO_WebTracking::retrieve($trackingParams,$trackingValues);
-    $this->assign('enable_tracking',$trackingValues['enable_tracking']);
-    $this->assign('tracking_id',$trackingValues['tracking_id']);
-
-
     if (!$values['event']['is_active']) {
       // form is inactive, die a fatal death
       CRM_Core_Error::fatal(ts('The page you requested is currently unavailable.'));
@@ -375,6 +369,8 @@ class CRM_Event_Page_EventInfo extends CRM_Core_Page {
 
 
     //## experimenting with resources
+    $trackingParams = array('page_id' => $this->_id, 'page_category' => "civicrm_event");
+    CRM_Core_BAO_WebTracking::retrieve($trackingParams,$trackingValues);
     if($trackingValues['enable_tracking'] == 1)
     {
       CRM_Core_Resources::singleton()->addScriptFile('civicrm', 'js/WebTracking.js',10,'html-header');

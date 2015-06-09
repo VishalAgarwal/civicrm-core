@@ -95,7 +95,7 @@
     {* User account registration option. Displays if enabled for one of the profiles on this page. *}
     {include file="CRM/common/CMSUser.tpl"}
 
-    <<!-- ##First Name, Last Name ans Email are inputted here-->		
+    <!-- ##First Name, Last Name ans Email are inputted here-->		
     {* Display "Top of page" profile immediately after the introductory text *}
     {include file="CRM/UF/Form/Block.tpl" fields=$customPre}
 
