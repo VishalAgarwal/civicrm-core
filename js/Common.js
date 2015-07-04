@@ -97,7 +97,7 @@ function showHideByValue(trigger_field_id, trigger_value, target_element_id, tar
   if (field_type == 'select') {
     var trigger = trigger_value.split("|");
     var selectedOptionValue = cj('#' + trigger_field_id).val();
-
+    alert("hi");
     target = target_element_id.split("|");
     for (j = 0; j < target.length; j++) {
       if (invert) {

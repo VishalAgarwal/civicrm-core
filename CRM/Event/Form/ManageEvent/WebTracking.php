@@ -81,19 +81,19 @@ class CRM_Event_Form_ManageEvent_WebTracking extends CRM_Event_Form_ManageEvent 
     //## UAID
      $this->add('text', 'tracking_id', ts('Tracking ID'));
 
-    /*//## Custom Event Tracking 
-    $this->addElement('checkbox', 'custom_event_tracking', ts('Enable CustomEventTracking?'));
+    //## Custom Event Tracking 
+    //$this->addElement('checkbox', 'custom_event_tracking', ts('Enable CustomEventTracking?'));
 
-     //## E-Commerce Tracking 
-    $this->addElement('checkbox', 'ecommerce_tracking', ts('Enable E-Commerce Tracking?'));
+    //## E-Commerce Tracking 
+    //$this->addElement('checkbox', 'ecommerce_tracking', ts('Enable E-Commerce Tracking?'));
 
-     //## Is this the primary page of the experiment 
-    $this->addElement('checkbox', 'primary_page_experiment', ts('Is it the primary page of the experiment?'));
+    //## Is this the primary page of the experiment 
+    //$this->addElement('checkbox', 'primary_page_experiment', ts('Is it the primary page of the experiment?'));
 
-     //## Experiment ID
-    $this->add('text', 'experiment_id', ts('Experiment ID'));*/
+    //## Experiment ID
+    //$this->add('text', 'experiment_id', ts('Experiment ID'));
       
-   // $form->registerRule('checktracking', 'callback', 'checkTracking');
+    //$form->registerRule('checktracking', 'callback', 'checkTracking');
     //$form->addRule('tracking_id', 'Tracking ID is invalid', 'checktracking');
 
     $this->addFormRule(array('CRM_Event_Form_ManageEvent_WebTracking', 'formRule'));
